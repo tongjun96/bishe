@@ -163,7 +163,7 @@ class ResAttentionNetClassification(object):
                 writer = tf.summary.FileWriter("./graphs", graph=sess.graph)
                 # Start queue threads.
                 # Train the model
-                print "{} -- Start Training:".format(datetime.now())
+                print ( "{} -- Start Training:" + str(format(datetime.now())))
                 gstep = global_step.eval(session=sess)
                 training_epochs = 100
                 batch_size = 4
@@ -179,11 +179,10 @@ class ResAttentionNetClassification(object):
                         label = train_y[cnt*batch_size:cnt*batch_size+batch_size]
                         lo, m, _ =  sess.run([loss, merge, my_train_op], feed_dict={train_img_bat:img, train_lab_bat: label,lr: lr_value})
                         if cnt%1000 == 0:
-                            print "{0}: Epoch {1} Step {2}, the training loss = {3}".format(datetime.now(), epoch + 1,cnt, lo)
+                            print ( "the training loss = " + str(lo) )
                         cnt += 1
                     eval_acc = sess.run([eval_accu], feed_dict={test_img_bat:test_x,test_lab_bat:test_y})
-                    print 'Epoch: '+ str(epoch+1)+', testing accuracy: '+str(eval_acc)
-            writer.close()
+                    print ('Epoch: '+ str(epoch+1)+', testing accuracy: '+str(eval_acc))
     @staticmethod
     def get_arguments():
         # Create a parser object
